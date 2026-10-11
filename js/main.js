@@ -724,6 +724,245 @@ function initMenuModal() {
   });
 }
 
+/* ---------- 1. Status em Tempo Real (Aberto Agora / Horários) ---------- */
+function initLiveStatus() {
+  const pills = document.querySelectorAll('.live-status-pill');
+  if (!pills.length) return;
+
+  const update = () => {
+    // Fuso do Pará / Horário de Brasília (UTC-3)
+    const now = new Date();
+    const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+    const belemTime = new Date(utc - (3 * 3600000));
+    const day = belemTime.getDay(); // 0: Domingo, 5: Sexta, 6: Sábado
+    const hour = belemTime.getHours();
+    const minute = belemTime.getMinutes();
+    const timeDecimal = hour + minute / 60;
+
+    let statusText = '';
+    let statusClass = '';
+
+    const isWeekendDay = (day === 5 || day === 6 || day === 0);
+
+    if (isWeekendDay && timeDecimal >= 16.0 && timeDecimal < 23.0) {
+      statusText = 'Aberto agora · Fecha às 23h';
+      statusClass = 'is-open';
+    } else if (isWeekendDay && timeDecimal < 16.0) {
+      statusText = 'Abre hoje às 16h';
+      statusClass = 'is-today';
+    } else {
+      statusText = 'Abre sexta às 16h';
+      statusClass = 'is-closed';
+    }
+
+    pills.forEach((pill) => {
+      pill.classList.remove('is-open', 'is-today', 'is-closed');
+      pill.classList.add(statusClass);
+      const textEl = pill.querySelector('.live-status-text');
+      if (textEl) textEl.textContent = statusText;
+    });
+  };
+
+  update();
+  setInterval(update, 60000);
+}
+
+/* ---------- 2. Previsão do Pôr do Sol em Pirabas (PA) ---------- */
+function initSunsetForecast() {
+  const el = document.getElementById('sunset-time');
+  if (!el) return;
+
+  const now = new Date();
+  const startOfYear = new Date(now.getFullYear(), 0, 0);
+  const diff = now - startOfYear;
+  const oneDay = 1000 * 60 * 60 * 24;
+  const dayOfYear = Math.floor(diff / oneDay);
+
+  // Estimativa solar para a costa equatorial paraense (-0.76° S, -47.17° W)
+  const angle = (2 * Math.PI / 365) * (dayOfYear - 80);
+  const sunsetMinutes = Math.round(18 * 60 + 13 + 6 * Math.sin(angle));
+  const h = Math.floor(sunsetMinutes / 60);
+  const m = String(sunsetMinutes % 60).padStart(2, '0');
+  el.textContent = `${h}h${m}`;
+}
+
+/* ---------- 3. Lightbox HD da Galeria ---------- */
+function initGalleryLightbox() {
+  const modal = document.getElementById('lightbox-modal');
+  if (!modal) return;
+
+  const items = Array.from(document.querySelectorAll('.gallery-item'));
+  if (!items.length) return;
+
+  const img = modal.querySelector('.lightbox-image');
+  const captionEl = modal.querySelector('.lightbox-caption');
+  const counterEl = modal.querySelector('.lightbox-counter');
+  const closeBtn = modal.querySelector('.lightbox-btn-close');
+  const prevBtn = modal.querySelector('.lightbox-prev');
+  const nextBtn = modal.querySelector('.lightbox-next');
+
+  let currentIndex = 0;
+  let lastFocused = null;
+
+  const imagesData = items.map((item) => {
+    const originalImg = item.querySelector('img');
+    const caption = item.querySelector('.gallery-caption');
+    const hdSrc = item.dataset.hdSrc || (originalImg ? originalImg.src : '');
+    const text = caption ? caption.textContent.trim() : (originalImg ? originalImg.alt : '');
+    return { src: hdSrc, caption: text };
+  });
+
+  const showImage = (index) => {
+    if (index < 0) index = imagesData.length - 1;
+    if (index >= imagesData.length) index = 0;
+    currentIndex = index;
+
+    img.style.opacity = '0';
+    img.style.transform = 'scale(0.96)';
+
+    setTimeout(() => {
+      img.src = imagesData[currentIndex].src;
+      img.alt = imagesData[currentIndex].caption;
+      if (captionEl) captionEl.textContent = imagesData[currentIndex].caption;
+      if (counterEl) counterEl.textContent = `${currentIndex + 1} de ${imagesData.length}`;
+      img.style.opacity = '1';
+      img.style.transform = 'scale(1)';
+    }, 120);
+  };
+
+  const openLightbox = (index) => {
+    lastFocused = document.activeElement;
+    showImage(index);
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('lightbox-open');
+    if (closeBtn) closeBtn.focus();
+  };
+
+  const closeLightbox = () => {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('lightbox-open');
+    if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+  };
+
+  items.forEach((item, index) => {
+    item.setAttribute('tabindex', '0');
+    item.setAttribute('role', 'button');
+    item.setAttribute('aria-label', `Ampliar foto: ${item.querySelector('.gallery-caption')?.textContent || 'Rancho Pirabas'}`);
+
+    item.addEventListener('click', () => openLightbox(index));
+    item.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openLightbox(index);
+      }
+    });
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+  if (prevBtn) prevBtn.addEventListener('click', () => showImage(currentIndex - 1));
+  if (nextBtn) nextBtn.addEventListener('click', () => showImage(currentIndex + 1));
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal || e.target.classList.contains('lightbox-dialog')) {
+      closeLightbox();
+    }
+  });
+
+  // Teclado
+  document.addEventListener('keydown', (e) => {
+    if (!modal.classList.contains('is-open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
+    if (e.key === 'ArrowRight') showImage(currentIndex + 1);
+  });
+
+  // Touch Swipe para mobile
+  let touchStartX = 0;
+  modal.addEventListener('touchstart', (e) => {
+    if (e.changedTouches && e.changedTouches[0]) {
+      touchStartX = e.changedTouches[0].screenX;
+    }
+  }, { passive: true });
+
+  modal.addEventListener('touchend', (e) => {
+    if (e.changedTouches && e.changedTouches[0]) {
+      const touchEndX = e.changedTouches[0].screenX;
+      const diff = touchEndX - touchStartX;
+      if (Math.abs(diff) > 45) {
+        if (diff > 0) showImage(currentIndex - 1);
+        else showImage(currentIndex + 1);
+      }
+    }
+  }, { passive: true });
+}
+
+/* ---------- 4. Filtro por Categoria do Cardápio ---------- */
+function initMenuFilters() {
+  const filterBtns = document.querySelectorAll('.menu-filter-btn');
+  const cards = document.querySelectorAll('.menu-grid .menu-card');
+  if (!filterBtns.length || !cards.length) return;
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach((b) => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+
+      const filter = btn.dataset.filter;
+      cards.forEach((card) => {
+        const category = card.dataset.category || 'all';
+        if (filter === 'all' || category === filter) {
+          card.classList.remove('is-filtered-out');
+        } else {
+          card.classList.add('is-filtered-out');
+        }
+      });
+    });
+  });
+}
+
+/* ---------- 5. Zoom e Ações do Modal do Cardápio ---------- */
+function initMenuModalZoom() {
+  const wrap = document.querySelector('.menu-modal-image-wrap');
+  const zoomBtn = document.querySelector('[data-menu-zoom]');
+  const openExternalBtn = document.querySelector('[data-menu-external]');
+  const img = document.querySelector('[data-menu-image]');
+  if (!wrap || !img) return;
+
+  const toggleZoom = () => {
+    wrap.classList.toggle('is-zoomed');
+    if (zoomBtn) {
+      const isZoomed = wrap.classList.contains('is-zoomed');
+      zoomBtn.textContent = isZoomed ? '🔍 Reduzir (1x)' : '🔍 Ampliar (1.7x)';
+    }
+  };
+
+  if (zoomBtn) zoomBtn.addEventListener('click', toggleZoom);
+  img.addEventListener('click', toggleZoom);
+
+  if (openExternalBtn) {
+    openExternalBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.open(img.src, '_blank');
+    });
+  }
+}
+
+/* ---------- 6. Botão Voltar ao Topo ---------- */
+function initBackToTop() {
+  const btn = document.getElementById('back-to-top');
+  if (!btn) return;
+
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('is-visible', window.scrollY > 400);
+  }, { passive: true });
+
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+
 /* ---------- Inicialização geral ---------- */
 document.addEventListener('DOMContentLoaded', () => {
   initHeaderScroll();
@@ -740,10 +979,17 @@ document.addEventListener('DOMContentLoaded', () => {
   initMenuCardFx();
   initCardTilt();
   initMenuModal();
+  initMenuFilters();
+  initMenuModalZoom();
   initGalleryPagedCarousel();
+  initGalleryLightbox();
+  initLiveStatus();
+  initSunsetForecast();
+  initBackToTop();
   initFooterYear();
   initLazyImages();
 });
+
 /* ===== Ícones circulares dos canais de contato ===== */
 document.addEventListener('DOMContentLoaded', () => {
   const names = ['phone', 'whatsapp', 'instagram', 'facebook'];

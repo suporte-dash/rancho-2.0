@@ -37,6 +37,7 @@
   <!-- ============ CSS ============ -->
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/approved-overrides.css?v=reviews-themes-grid-v1-2026" />
+  <link rel="stylesheet" href="css/enhancements.css?v=1.1.0" />
 
   <!-- ============ Favicon ============ -->
   <link rel="icon" type="image/png" href="assets/images/logo-icon-black.png" />
@@ -87,6 +88,54 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Precisa pagar entrada no Rancho Pirabas?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Não! A entrada no Rancho Pirabas é 100% gratuita. Você só paga o que consumir de comidas, petiscos e bebidas do nosso cardápio."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Como funciona a reserva de mesas?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Trabalhamos por ordem de chegada para o público geral. Para grupos maiores, confraternizações ou datas especiais, recomendamos entrar em contato com antecedência pelo WhatsApp (91) 98503-1257."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Qual o melhor horário para chegar e ver o pôr do sol?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Abrimos pontualmente às 16h! O sol se põe por volta das 18h10. Recomendamos chegar entre 16h e 17h para escolher a melhor mesa no deck com vista panorâmica para o mar."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "O espaço é pet friendly e aceita crianças?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sim! Nosso ambiente é amplo, arejado, cercado pela natureza e com deck de madeira à beira-mar, ideal para toda a família, crianças e pets dóceis com coleira."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Quais são as formas de pagamento aceitas?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Aceitamos Pix, dinheiro em espécie e os principais cartões de débito e crédito (Visa, Mastercard, Elo)."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -111,9 +160,15 @@
       <a href="#galeria">Galeria</a>
       <a href="#instagram">Instagram</a>
       <a href="#avaliacoes">Avaliações</a>
+      <a href="#faq">Dúvidas</a>
       <a href="#localizacao">Localização</a>
       <a href="https://wa.me/5591985031257?text=Ol%C3%A1%21%20Vim%20pelo%20site%20do%20Rancho%20Pirabas%20e%20gostaria%20de%20confirmar%20se%20haver%C3%A1%20funcionamento%20normal%20e%20disponibilidade%20neste%20fim%20de%20semana.%20Podem%20me%20ajudar%3F" class="header-cta" target="_blank" rel="noopener">Reservar mesa</a>
     </nav>
+
+    <a href="#localizacao" class="live-status-pill" id="header-status-pill" aria-label="Ver horários de funcionamento">
+      <span class="live-status-dot" aria-hidden="true"></span>
+      <span class="live-status-text">Carregando status...</span>
+    </a>
 
     <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false">
       <span></span>
@@ -159,6 +214,14 @@
             <span class="btn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-7.4 8-13a8 8 0 1 0-16 0c0 5.6 8 13 8 13z"/><circle cx="12" cy="9" r="3"/></svg></span>
             Como chegar
           </a>
+        </div>
+
+        <div class="sunset-forecast-card">
+          <span class="sunset-forecast-icon" aria-hidden="true">🌅</span>
+          <div class="sunset-forecast-text">
+            <strong>Pôr do sol hoje previsto às <span id="sunset-time">18h14</span></strong>
+            <span>Chegue até as 17h para garantir os melhores lugares no deck à beira-mar</span>
+          </div>
         </div>
       </div>
 
@@ -212,7 +275,7 @@
         <div class="about-visual" data-reveal>
           <video class="about-slide is-active" data-slide-type="video" poster="assets/images/deck/deck-beira-rio-entardecer.jpg" src="assets/videos/sobre-video-1.mp4" muted playsinline preload="auto" aria-hidden="true"></video>
           <img class="about-slide" data-slide-type="image" src="assets/images/deck/deck-beira-rio-entardecer.jpg?v=about-preview-2026" alt="Deck de madeira do Rancho Pirabas à beira do mar, ao entardecer" aria-hidden="true" />
-          <video class="about-slide" data-slide-type="video" src="assets/videos/sobre-video-3.mp4" muted playsinline preload="auto" aria-hidden="true"></video>
+          <video class="about-slide" data-slide-type="video" poster="assets/images/deck/deck-noturno-mesas-luzes.jpg" src="assets/videos/sobre-video-3.mp4" muted playsinline preload="auto" aria-hidden="true"></video>
           <img class="about-slide about-slide-collage" data-slide-type="image" src="assets/images/sobre-imagem-2-colagem.jpg" alt="Colagem de fotos do Rancho Pirabas com o ambiente, clientes e pôr do sol" aria-hidden="true" />
         </div>
       </div>
@@ -298,8 +361,16 @@
           </div>
         </div>
 
+        <div class="menu-filter-bar" role="tablist" aria-label="Filtrar categorias do cardápio" data-reveal>
+          <button type="button" class="menu-filter-btn is-active" data-filter="all">Todos</button>
+          <button type="button" class="menu-filter-btn" data-filter="cafe">Café da manhã</button>
+          <button type="button" class="menu-filter-btn" data-filter="petiscos">Petiscos</button>
+          <button type="button" class="menu-filter-btn" data-filter="sucos">Sucos &amp; Bebidas</button>
+          <button type="button" class="menu-filter-btn" data-filter="drinks">Drinks &amp; Chopp</button>
+        </div>
+
         <div class="menu-grid" data-reveal-stagger>
-          <article class="menu-card">
+          <article class="menu-card" data-category="cafe">
             <img class="menu-card__watermark" src="assets/images/logo-icon-black.png" alt="" aria-hidden="true" />
             <h3>Café da manhã</h3>
             <ul>
@@ -309,7 +380,7 @@
             </ul>
           </article>
 
-          <article class="menu-card">
+          <article class="menu-card" data-category="petiscos">
             <img class="menu-card__watermark" src="assets/images/logo-icon-black.png" alt="" aria-hidden="true" />
             <h3>Petiscos</h3>
             <ul>
@@ -319,7 +390,7 @@
             </ul>
           </article>
 
-          <article class="menu-card">
+          <article class="menu-card" data-category="sucos">
             <img class="menu-card__watermark" src="assets/images/logo-icon-black.png" alt="" aria-hidden="true" />
             <h3>Sucos &amp; bebidas</h3>
             <ul>
@@ -329,7 +400,7 @@
             </ul>
           </article>
 
-          <article class="menu-card">
+          <article class="menu-card" data-category="drinks">
             <img class="menu-card__watermark" src="assets/images/logo-icon-black.png" alt="" aria-hidden="true" />
             <h3>Drinks &amp; chopp</h3>
             <ul>
@@ -343,7 +414,7 @@
         <div class="menu-links" data-reveal>
           <button type="button" class="btn btn-primary" data-menu-open>
             <span class="btn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span>
-            Cardápios
+            Cardápios completos
           </button>
         </div>
         <p class="menu-note">Aceitamos Pix e cartões (Visa, Mastercard, Elo) · Preços sujeitos a alteração sem aviso prévio.</p>
@@ -362,6 +433,11 @@
 
         <div class="menu-modal-image-wrap">
           <img data-menu-image src="assets/images/cardapio/cardapio-completo-1.jpg" alt="Cardápio de comidas do Rancho Pirabas" />
+        </div>
+
+        <div class="menu-modal-tools">
+          <button type="button" class="menu-modal-tool-btn" data-menu-zoom>🔍 Ampliar (1.7x)</button>
+          <a class="menu-modal-tool-btn" data-menu-external href="assets/images/cardapio/cardapio-completo-1.jpg" target="_blank" rel="noopener">Abrir em alta resolução ↗</a>
         </div>
 
         <div class="menu-modal-switch" role="tablist" aria-label="Escolher cardápio">
@@ -386,52 +462,64 @@
 
       <div class="container">
         <div class="gallery-track" data-reveal>
-          <figure class="gallery-item">
+          <figure class="gallery-item" data-hd-src="assets/images/galeria-hd/01-por-do-sol-rio-mangue.webp">
             <img src="assets/images/por-do-sol/por-do-sol-rio-mangue-nova.webp" alt="Pôr do sol dourado refletido no mar, visto do Rancho Pirabas" loading="lazy" width="600" height="988" />
+            <span class="gallery-zoom-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="16" height="16"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></span>
             <figcaption class="gallery-caption">Pôr do sol sobre o mar</figcaption>
           </figure>
-          <figure class="gallery-item">
+          <figure class="gallery-item" data-hd-src="assets/images/galeria-hd/02-fachada-letreiro-por-do-sol.webp">
             <img src="assets/images/deck/fachada-galeria-nova.webp" alt="Fachada do Rancho Pirabas com letreiro 'O melhor pôr do sol de Pirabas'" loading="lazy" width="1122" height="1402" />
+            <span class="gallery-zoom-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="16" height="16"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></span>
             <figcaption class="gallery-caption">O melhor pôr do sol de Pirabas</figcaption>
           </figure>
-          <figure class="gallery-item">
+          <figure class="gallery-item" data-hd-src="assets/images/galeria-hd/03-drink-vermelho-por-do-sol-rancho.webp">
             <img src="assets/images/drinks/drink-vermelho-por-do-sol-rancho.jpg?v=gallery-replaced-2026" alt="Drink vermelho do Rancho Pirabas com o pôr do sol ao fundo" loading="lazy" width="963" height="1633" />
+            <span class="gallery-zoom-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="16" height="16"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></span>
             <figcaption class="gallery-caption">Drink ao entardecer</figcaption>
           </figure>
-          <figure class="gallery-item">
+          <figure class="gallery-item" data-hd-src="assets/images/galeria-hd/04-coxinhas-molho-rosa.webp">
             <img src="assets/images/comidas/coxinhas-molho-rosa.jpg?v=gallery-replaced-2026" alt="Coxinhas fritas servidas com molho especial no Rancho Pirabas" loading="lazy" width="980" height="1604" />
+            <span class="gallery-zoom-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="16" height="16"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></span>
             <figcaption class="gallery-caption">Petiscos fritinhos</figcaption>
           </figure>
-          <figure class="gallery-item">
+          <figure class="gallery-item" data-hd-src="assets/images/galeria-hd/05-grupo-amigos-mesa-vista-rio.webp">
             <img src="assets/images/visitantes/grupo-amigos-mesa-vista-rio.jpg?v=gallery-remaining-2026" alt="Grupo de amigos reunidos à mesa com vista para o mar" loading="lazy" width="1052" height="1495" />
+            <span class="gallery-zoom-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="16" height="16"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></span>
             <figcaption class="gallery-caption">Amigos à beira do mar</figcaption>
           </figure>
-          <figure class="gallery-item">
+          <figure class="gallery-item" data-hd-src="assets/images/galeria-hd/06-deck-noturno-mesas-luzes.webp">
             <img src="assets/images/deck/deck-noturno-mesas-luzes.jpg?v=gallery-remaining-2026" alt="Deck do Rancho Pirabas iluminado por luzes à noite" loading="lazy" width="1393" height="1129" />
+            <span class="gallery-zoom-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="16" height="16"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></span>
             <figcaption class="gallery-caption">Deck iluminado à noite</figcaption>
           </figure>
-          <figure class="gallery-item">
+          <figure class="gallery-item" data-hd-src="assets/images/galeria-hd/07-cafe-da-manha-completo.webp">
             <img src="assets/images/comidas/cafe-da-manha-completo.jpg?v=gallery-replaced-2026" alt="Mesa com tapiocas, cafés e torradas do café da manhã do Rancho Pirabas" loading="lazy" width="1086" height="1448" />
+            <span class="gallery-zoom-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="16" height="16"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></span>
             <figcaption class="gallery-caption">Café da manhã completo</figcaption>
           </figure>
-          <figure class="gallery-item">
+          <figure class="gallery-item" data-hd-src="assets/images/galeria-hd/08-drink-azul-limao-taca-rancho.webp">
             <img src="assets/images/drinks/drink-azul-limao-taca-rancho.jpg?v=gallery-replaced-2026" alt="Drink azul com rodela de limão servido em taça com a marca Rancho Pirabas" loading="lazy" width="1122" height="1402" />
+            <span class="gallery-zoom-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="16" height="16"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></span>
             <figcaption class="gallery-caption">Drinks autorais</figcaption>
           </figure>
-          <figure class="gallery-item">
+          <figure class="gallery-item" data-hd-src="assets/images/galeria-hd/09-passarela-iluminada-noite.webp">
             <img src="assets/images/deck/passarela-iluminada-noite.jpg?v=gallery-replaced-2026" alt="Passarela de madeira iluminada à noite, cercada de vegetação" loading="lazy" width="977" height="1610" />
+            <span class="gallery-zoom-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="16" height="16"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></span>
             <figcaption class="gallery-caption">Passarela iluminada</figcaption>
           </figure>
-          <figure class="gallery-item">
+          <figure class="gallery-item" data-hd-src="assets/images/galeria-hd/10-amigas-mesa-deck-rio.webp">
             <img src="assets/images/visitantes/amigas-mesa-deck-rio.jpg?v=gallery-replaced-2026" alt="Amigas sorrindo em mesa no deck com vista para o mar" loading="lazy" width="1053" height="1494" />
+            <span class="gallery-zoom-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="16" height="16"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></span>
             <figcaption class="gallery-caption">Momentos entre amigas</figcaption>
           </figure>
-          <figure class="gallery-item">
+          <figure class="gallery-item" data-hd-src="assets/images/galeria-hd/11-coracao-decorativo-por-do-sol.webp">
             <img src="assets/images/por-do-sol/coracao-decorativo-por-do-sol.jpg?v=gallery-replaced-2026" alt="Detalhe decorativo em formato de coração emoldurando o pôr do sol" loading="lazy" width="977" height="1610" />
+            <span class="gallery-zoom-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="16" height="16"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></span>
             <figcaption class="gallery-caption">Detalhe romântico</figcaption>
           </figure>
-          <figure class="gallery-item">
+          <figure class="gallery-item" data-hd-src="assets/images/galeria-hd/12-fachada-entrada-rancho-pirabas.webp">
             <img src="assets/images/deck/fachada-entrada-rancho-pirabas.jpg?v=gallery-remaining-2026" alt="Entrada do Rancho Pirabas com telhado de palha e luzes decorativas" loading="lazy" width="977" height="1609" />
+            <span class="gallery-zoom-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="16" height="16"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></span>
             <figcaption class="gallery-caption">Entrada do rancho</figcaption>
           </figure>
         </div>
@@ -535,6 +623,71 @@
     </section>
 
     <!-- ============================================================
+         FAQ / DÚVIDAS FREQUENTES
+    ============================================================= -->
+    <section class="faq-section" id="faq">
+      <div class="container">
+        <div class="section-heading" data-reveal>
+          <span class="eyebrow" style="color: var(--amber-poente);">Tire suas dúvidas</span>
+          <h2 data-split-text>Perguntas frequentes sobre o Rancho Pirabas</h2>
+          <p>Tudo o que você precisa saber antes de nos visitar para curtir o entardecer.</p>
+        </div>
+
+        <div class="faq-list" data-reveal>
+          <details class="faq-item">
+            <summary class="faq-question">
+              <span>Precisa pagar entrada no Rancho Pirabas?</span>
+              <span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><path d="m6 9 6 6 6-6"/></svg></span>
+            </summary>
+            <div class="faq-answer">
+              <p>Não! A entrada no Rancho Pirabas é 100% gratuita. Você só paga o que consumir de comidas, petiscos e bebidas do nosso cardápio.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-question">
+              <span>Como funciona a reserva de mesas?</span>
+              <span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><path d="m6 9 6 6 6-6"/></svg></span>
+            </summary>
+            <div class="faq-answer">
+              <p>Trabalhamos por ordem de chegada para o público geral. Para grupos maiores, confraternizações, aniversários ou datas especiais, recomendamos entrar em contato com antecedência pelo nosso WhatsApp para verificar disponibilidade de reserva.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-question">
+              <span>Qual o melhor horário para chegar e ver o pôr do sol?</span>
+              <span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><path d="m6 9 6 6 6-6"/></svg></span>
+            </summary>
+            <div class="faq-answer">
+              <p>Abrimos pontualmente às 16h! O sol se põe por volta das 18h10. Recomendamos chegar entre 16h e 17h para escolher a sua mesa preferida no deck com vista panorâmica para o mar e apreciar todas as fases do entardecer com tranquilidade.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-question">
+              <span>O espaço é pet friendly e aceita crianças?</span>
+              <span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><path d="m6 9 6 6 6-6"/></svg></span>
+            </summary>
+            <div class="faq-answer">
+              <p>Sim! Nosso ambiente é amplo, arejado, cercado pela natureza e com deck de madeira à beira-mar, perfeito para toda a família, crianças e pets dóceis com coleira.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-question">
+              <span>Quais são as formas de pagamento aceitas?</span>
+              <span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><path d="m6 9 6 6 6-6"/></svg></span>
+            </summary>
+            <div class="faq-answer">
+              <p>Aceitamos Pix, dinheiro em espécie e os principais cartões de débito e crédito (Visa, Mastercard, Elo).</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
          LOCALIZAÇÃO
     ============================================================= -->
     <section class="location" id="localizacao">
@@ -563,7 +716,7 @@
               </span>
               <div>
                 <h3>Horário de funcionamento</h3>
-                <p>Sexta a domingo — das 16h às 23h</p>
+                <p>Sexta a domingo — das 16h às 23h <span class="live-status-pill" style="margin-left: 0.5rem; vertical-align: middle;"><span class="live-status-dot" aria-hidden="true"></span><span class="live-status-text">Aberto agora</span></span></p>
               </div>
             </div>
 
@@ -645,8 +798,10 @@
           <ul>
             <li><a href="#sobre">Sobre</a></li>
             <li><a href="#destaques">Destaques</a></li>
+            <li><a href="#cardapio">Cardápio</a></li>
             <li><a href="#galeria">Galeria</a></li>
             <li><a href="#avaliacoes">Avaliações</a></li>
+            <li><a href="#faq">Dúvidas</a></li>
             <li><a href="#localizacao">Localização</a></li>
           </ul>
         </div>
@@ -675,11 +830,43 @@
     </div>
   </footer>
 
+  <!-- ============================================================
+       LIGHTBOX HD (Galeria em Alta Definição)
+  ============================================================= -->
+  <div class="lightbox-modal" id="lightbox-modal" role="dialog" aria-modal="true" aria-label="Visualizador de fotos em alta definição" aria-hidden="true">
+    <button type="button" class="lightbox-btn-close" aria-label="Fechar galeria">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="22" height="22" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+
+    <button type="button" class="lightbox-nav-btn lightbox-prev" aria-label="Foto anterior">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="22" height="22" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+    </button>
+
+    <button type="button" class="lightbox-nav-btn lightbox-next" aria-label="Próxima foto">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="22" height="22" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+    </button>
+
+    <div class="lightbox-dialog" tabindex="-1">
+      <div class="lightbox-image-wrap">
+        <img class="lightbox-image" src="" alt="" />
+      </div>
+      <div class="lightbox-footer">
+        <span class="lightbox-caption"></span>
+        <span class="lightbox-counter"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botão Voltar ao Topo -->
+  <button class="back-to-top" id="back-to-top" type="button" aria-label="Voltar ao início da página">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="20" height="20" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
+  </button>
+
   <!-- WhatsApp flutuante -->
   <a class="whatsapp-float" href="https://wa.me/5591985031257?text=Ol%C3%A1%21%20Vim%20pelo%20site%20do%20Rancho%20Pirabas%20e%20gostaria%20de%20confirmar%20se%20haver%C3%A1%20funcionamento%20normal%20e%20disponibilidade%20neste%20fim%20de%20semana.%20Podem%20me%20ajudar%3F" target="_blank" rel="noopener" aria-label="Fale conosco pelo WhatsApp">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
   </a>
 
-  <script src="js/main.js?v=reviews-themes-grid-v1-2026"></script>
+  <script src="js/main.js?v=1.1.0"></script>
 </body>
 </html>

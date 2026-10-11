@@ -1,0 +1,20 @@
+{
+  "name": "rancho-principal",
+  "version": "1.1.0",
+  "description": "Landing page institucional do Rancho Pirabas - São João de Pirabas (PA)",
+  "private": true,
+  "scripts": {
+    "dev": "python -m http.server 3000",
+    "validate": "node scripts/validate.js",
+    "test": "node scripts/validate.js"
+  },
+  "keywords": [
+    "rancho-pirabas",
+    "landing-page",
+    "sao-joao-de-pirabas",
+    "para",
+    "por-do-sol"
+  ],
+  "author": "Rancho Pirabas",
+  "license": "UNLICENSED"
+}
