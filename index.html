@@ -147,10 +147,10 @@
   <header class="site-header">
     <a href="#topo" class="brand" aria-label="Rancho Pirabas - página inicial">
       <img src="assets/images/logo-icon-cream.png" alt="Rancho Pirabas" class="brand-mark" width="44" height="45" />
-      Rancho Pirabas
+      <span>Rancho Pirabas</span>
     </a>
 
-    <nav class="main-nav" aria-label="Navegação principal">
+    <nav class="main-nav" id="mainNav" aria-label="Navegação principal">
       <div class="mobile-nav-brand">
         <img src="assets/images/logo-icon-cream.png" alt="Rancho Pirabas" width="44" height="45" />
       </div>
@@ -160,17 +160,12 @@
       <a href="#galeria">Galeria</a>
       <a href="#instagram">Instagram</a>
       <a href="#avaliacoes">Avaliações</a>
-      <a href="#faq">Dúvidas</a>
       <a href="#localizacao">Localização</a>
+      <a href="#faq">Dúvidas</a>
       <a href="https://wa.me/5591985031257?text=Ol%C3%A1%21%20Vim%20pelo%20site%20do%20Rancho%20Pirabas%20e%20gostaria%20de%20confirmar%20se%20haver%C3%A1%20funcionamento%20normal%20e%20disponibilidade%20neste%20fim%20de%20semana.%20Podem%20me%20ajudar%3F" class="header-cta" target="_blank" rel="noopener">Reservar mesa</a>
     </nav>
 
-    <a href="#localizacao" class="live-status-pill" id="header-status-pill" aria-label="Ver horários de funcionamento">
-      <span class="live-status-dot" aria-hidden="true"></span>
-      <span class="live-status-text">Carregando status...</span>
-    </a>
-
-    <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false">
+    <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="Abrir menu">
       <span></span>
     </button>
   </header>
@@ -223,6 +218,11 @@
             <span>Chegue até as 17h para garantir os melhores lugares no deck à beira-mar</span>
           </div>
         </div>
+
+        <a href="#localizacao" class="live-status-pill hero-status-pill" id="heroStatusPill" aria-label="Ver horários de funcionamento e localização">
+          <span class="live-status-dot" aria-hidden="true"></span>
+          <span class="live-status-text">Carregando status...</span>
+        </a>
       </div>
 
       <svg class="horizon-line" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
@@ -436,8 +436,16 @@
         </div>
 
         <div class="menu-modal-tools">
-          <button type="button" class="menu-modal-tool-btn" data-menu-zoom>🔍 Ampliar (1.7x)</button>
-          <a class="menu-modal-tool-btn" data-menu-external href="assets/images/cardapio/cardapio-completo-1.jpg" target="_blank" rel="noopener">Abrir em alta resolução ↗</a>
+          <a class="menu-modal-tool-btn" data-menu-external href="assets/images/cardapio/cardapio-completo-1.jpg" target="_blank" rel="noopener">
+            <span class="menu-tool-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+            </span>
+            <span>Abrir em alta resolução</span>
+          </a>
         </div>
 
         <div class="menu-modal-switch" role="tablist" aria-label="Escolher cardápio">
@@ -623,12 +631,66 @@
     </section>
 
     <!-- ============================================================
+         LOCALIZAÇÃO
+    ============================================================= -->
+    <section class="location" id="localizacao">
+      <div class="container location-grid">
+        <div data-reveal>
+          <span class="eyebrow" style="color: var(--amber-poente);">Localização</span>
+          <div class="section-heading">
+            <h2 data-split-text>Como chegar ao Rancho Pirabas</h2>
+            <p>Em São João de Pirabas, a cerca de 200 km de Belém, no Salgado Paraense.</p>
+          </div>
+
+          <div class="location-info">
+            <div class="info-row">
+              <span class="icon-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-7.4 8-13a8 8 0 1 0-16 0c0 5.6 8 13 8 13z"/><circle cx="12" cy="9" r="3"/></svg>
+              </span>
+              <div>
+                <h3>Endereço</h3>
+                <p>Tv. da Glória, São João de Pirabas — PA</p>
+              </div>
+            </div>
+
+            <div class="info-row">
+              <span class="icon-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              </span>
+              <div>
+                <h3>Horário de funcionamento</h3>
+                <p>Sexta a domingo — das 16h às 23h <span class="live-status-pill" style="margin-left: 0.5rem; vertical-align: middle;"><span class="live-status-dot" aria-hidden="true"></span><span class="live-status-text">Aberto agora</span></span></p>
+              </div>
+            </div>
+
+            <div class="info-row">
+              <a class="btn btn-primary" href="https://maps.app.goo.gl/wgW4mjBnPQfnpoKz9" target="_blank" rel="noopener">
+                <span class="btn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l-6-3V3l6 3 6-3 6 3v15l-6-3-6 3z"/></svg></span>
+                Abrir no Google Maps
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="map-embed" data-reveal>
+          <iframe
+            title="Mapa de localização do Rancho Pirabas em São João de Pirabas, PA"
+            src="https://www.google.com/maps?q=-0.7650672,-47.1740857&z=15&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
          FAQ / DÚVIDAS FREQUENTES
     ============================================================= -->
     <section class="faq-section" id="faq">
       <div class="container">
         <div class="section-heading" data-reveal>
-          <span class="eyebrow" style="color: var(--amber-poente);">Tire suas dúvidas</span>
+          <span class="eyebrow">Dúvidas Frequentes</span>
           <h2 data-split-text>Perguntas frequentes sobre o Rancho Pirabas</h2>
           <p>Tudo o que você precisa saber antes de nos visitar para curtir o entardecer.</p>
         </div>
@@ -683,60 +745,6 @@
               <p>Aceitamos Pix, dinheiro em espécie e os principais cartões de débito e crédito (Visa, Mastercard, Elo).</p>
             </div>
           </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================
-         LOCALIZAÇÃO
-    ============================================================= -->
-    <section class="location" id="localizacao">
-      <div class="container location-grid">
-        <div data-reveal>
-          <span class="eyebrow" style="color: var(--amber-poente);">Localização</span>
-          <div class="section-heading">
-            <h2 data-split-text>Como chegar ao Rancho Pirabas</h2>
-            <p>Em São João de Pirabas, a cerca de 200 km de Belém, no Salgado Paraense.</p>
-          </div>
-
-          <div class="location-info">
-            <div class="info-row">
-              <span class="icon-badge">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-7.4 8-13a8 8 0 1 0-16 0c0 5.6 8 13 8 13z"/><circle cx="12" cy="9" r="3"/></svg>
-              </span>
-              <div>
-                <h3>Endereço</h3>
-                <p>Tv. da Glória, São João de Pirabas — PA</p>
-              </div>
-            </div>
-
-            <div class="info-row">
-              <span class="icon-badge">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-              </span>
-              <div>
-                <h3>Horário de funcionamento</h3>
-                <p>Sexta a domingo — das 16h às 23h <span class="live-status-pill" style="margin-left: 0.5rem; vertical-align: middle;"><span class="live-status-dot" aria-hidden="true"></span><span class="live-status-text">Aberto agora</span></span></p>
-              </div>
-            </div>
-
-            <div class="info-row">
-              <a class="btn btn-primary" href="https://maps.app.goo.gl/wgW4mjBnPQfnpoKz9" target="_blank" rel="noopener">
-                <span class="btn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l-6-3V3l6 3 6-3 6 3v15l-6-3-6 3z"/></svg></span>
-                Abrir no Google Maps
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="map-embed" data-reveal>
-          <iframe
-            title="Mapa de localização do Rancho Pirabas em São João de Pirabas, PA"
-            src="https://www.google.com/maps?q=-0.7650672,-47.1740857&z=15&output=embed"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            allowfullscreen>
-          </iframe>
         </div>
       </div>
     </section>
@@ -801,8 +809,8 @@
             <li><a href="#cardapio">Cardápio</a></li>
             <li><a href="#galeria">Galeria</a></li>
             <li><a href="#avaliacoes">Avaliações</a></li>
-            <li><a href="#faq">Dúvidas</a></li>
             <li><a href="#localizacao">Localização</a></li>
+            <li><a href="#faq">Dúvidas</a></li>
           </ul>
         </div>
 

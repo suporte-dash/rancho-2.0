@@ -67,7 +67,7 @@ function initMobileNav() {
   });
 
   window.addEventListener('resize', () => {
-    if (!window.matchMedia('(max-width: 720px)').matches) closeNav();
+    if (!window.matchMedia('(max-width: 1080px)').matches) closeNav();
   }, { passive: true });
 }
 
@@ -671,6 +671,7 @@ function initMenuModal() {
   const closeEls = document.querySelectorAll('[data-menu-close]');
   const tabs = document.querySelectorAll('[data-menu-tab]');
   const img = document.querySelector('[data-menu-image]');
+  const externalBtn = modal.querySelector('[data-menu-external]');
   if (!modal || !openBtn || !img) return;
 
   const menus = [
@@ -686,6 +687,9 @@ function initMenuModal() {
       btn.classList.toggle('is-active', active);
       btn.setAttribute('aria-selected', active ? 'true' : 'false');
     });
+    if (externalBtn) {
+      externalBtn.href = menus[index].src;
+    }
     img.style.opacity = '0';
     window.setTimeout(() => {
       img.src = menus[index].src;
@@ -922,24 +926,11 @@ function initMenuFilters() {
   });
 }
 
-/* ---------- 5. Zoom e Ações do Modal do Cardápio ---------- */
+/* ---------- 5. Ações do Modal do Cardápio ---------- */
 function initMenuModalZoom() {
-  const wrap = document.querySelector('.menu-modal-image-wrap');
-  const zoomBtn = document.querySelector('[data-menu-zoom]');
   const openExternalBtn = document.querySelector('[data-menu-external]');
   const img = document.querySelector('[data-menu-image]');
-  if (!wrap || !img) return;
-
-  const toggleZoom = () => {
-    wrap.classList.toggle('is-zoomed');
-    if (zoomBtn) {
-      const isZoomed = wrap.classList.contains('is-zoomed');
-      zoomBtn.textContent = isZoomed ? '🔍 Reduzir (1x)' : '🔍 Ampliar (1.7x)';
-    }
-  };
-
-  if (zoomBtn) zoomBtn.addEventListener('click', toggleZoom);
-  img.addEventListener('click', toggleZoom);
+  if (!img) return;
 
   if (openExternalBtn) {
     openExternalBtn.addEventListener('click', (e) => {
@@ -949,14 +940,61 @@ function initMenuModalZoom() {
   }
 }
 
-/* ---------- 6. Botão Voltar ao Topo ---------- */
+/* ---------- 6. Botão Voltar ao Topo (Dinâmico - 3 Fases da Paleta) ---------- */
 function initBackToTop() {
   const btn = document.getElementById('back-to-top');
   if (!btn) return;
 
-  window.addEventListener('scroll', () => {
-    btn.classList.toggle('is-visible', window.scrollY > 400);
-  }, { passive: true });
+  // As 3 fases oficiais de fundo do site (Pôr do Sol):
+  // 1. poente: #ff7a45 (Sobre, Destaques)
+  // 2. crepusculo: #c4467a (Cardápio, Galeria, Instagram)
+  // 3. noite: #2b2140 / #ffd98a (Avaliações, Localização, FAQ, Contato)
+  const phases = [
+    { theme: 'poente', ids: ['sobre', 'destaques'] },
+    { theme: 'crepusculo', ids: ['cardapio', 'galeria', 'instagram'] },
+    { theme: 'noite', ids: ['avaliacoes', 'localizacao', 'faq', 'contato'] }
+  ];
+
+  let ticking = false;
+
+  const updateBackToTop = () => {
+    const scrollY = window.scrollY;
+    btn.classList.toggle('is-visible', scrollY > 350);
+
+    const checkPoint = scrollY + Math.min(window.innerHeight * 0.5, 450);
+    let activeTheme = 'poente';
+
+    for (const phase of phases) {
+      for (const id of phase.ids) {
+        const el = document.getElementById(id);
+        if (el) {
+          const top = el.getBoundingClientRect().top + scrollY;
+          const bottom = top + el.offsetHeight;
+          if (checkPoint >= top && checkPoint < bottom) {
+            activeTheme = phase.theme;
+            break;
+          }
+        }
+      }
+    }
+
+    if (btn.dataset.theme !== activeTheme) {
+      btn.dataset.theme = activeTheme;
+    }
+
+    ticking = false;
+  };
+
+  const onScroll = () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateBackToTop);
+      ticking = true;
+    }
+  };
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  updateBackToTop();
 
   btn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
