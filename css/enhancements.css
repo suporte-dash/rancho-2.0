@@ -362,72 +362,59 @@
   animation: fadeInDown 0.8s 2.2s backwards var(--ease-out);
 }
 
-/* ---------- 2. Botão Minimalista do Guia Solar ---------- */
-.sunset-btn-container {
+/* ---------- 2. Botão do Guia Solar (Centralizado abaixo dos cards de Destaques) ---------- */
+.highlights-links {
   display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
   justify-content: center;
-  margin-top: 1.5rem;
+  align-items: center;
+  margin-top: clamp(2rem, 3.5vw, 3.25rem);
 }
 
-.btn-sunset-minimal {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.65rem;
-  padding: 0.72rem 1.65rem;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #ff7a45 0%, #ea580c 100%);
-  color: #ffffff !important;
-  border: 1px solid rgba(255, 255, 255, 0.35);
+.highlights-links .btn-sunset-guide {
+  background: var(--indigo-noite);
+  color: var(--text-light);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 18px 18px 8px 18px;
+  padding: 0.85rem 2rem 0.85rem 0.85rem;
+  box-shadow: 0 14px 28px rgba(31, 22, 48, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.12);
   font-family: inherit;
   font-size: 0.95rem;
   font-weight: 700;
   letter-spacing: -0.01em;
   text-decoration: none;
   cursor: pointer;
-  box-shadow: 0 8px 24px -4px rgba(234, 88, 12, 0.45), 0 2px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out), background 0.25s var(--ease-out);
+  transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out), background-color 0.25s var(--ease-out);
 }
 
-.btn-sunset-minimal:hover {
-  transform: translateY(-2px) scale(1.02);
-  background: linear-gradient(135deg, #ff8b57 0%, #f97316 100%);
-  box-shadow: 0 12px 30px -4px rgba(234, 88, 12, 0.6), 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-.btn-sunset-minimal:active {
-  transform: translateY(0) scale(0.98);
-}
-
-.btn-sunset-minimal:focus-visible {
-  outline: 3px solid #ff7a45;
-  outline-offset: 3px;
-}
-
-.btn-sunset-minimal-icon {
-  font-size: 1.25rem;
-  line-height: 1;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
-}
-
-.btn-sunset-minimal svg {
-  transition: transform 0.25s var(--ease-out);
-}
-
-.btn-sunset-minimal:hover svg {
-  transform: translateX(4px);
-}
-
-/* Fallback para caso haja .sunset-forecast-card */
-.sunset-forecast-card {
+.highlights-links .btn-sunset-guide .btn-icon {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--amber-poente);
   display: inline-flex;
   align-items: center;
-  gap: 0.85rem;
-  padding: 0.75rem 1.25rem;
-  border-radius: 999px;
-  background: rgba(255, 250, 240, 0.16);
-  border: 1px solid rgba(255, 235, 195, 0.35);
-  color: #fffaf0;
-  cursor: pointer;
+  justify-content: center;
+  border-radius: 50%;
+  width: 2.25rem;
+  height: 2.25rem;
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.highlights-links .btn-sunset-guide:hover {
+  background: #382b52;
+  transform: translateY(-4px) rotate(-0.5deg);
+  box-shadow: 0 20px 38px rgba(31, 22, 48, 0.54), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+}
+
+.highlights-links .btn-sunset-guide:active {
+  transform: translateY(-1px) rotate(0);
+}
+
+.highlights-links .btn-sunset-guide:focus-visible {
+  outline: 3px solid var(--amber-poente);
+  outline-offset: 3px;
 }
 
 /* ---------- 2.1 Modal do Guia do Pôr do Sol ---------- */
