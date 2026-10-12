@@ -362,19 +362,43 @@
   animation: fadeInDown 0.8s 2.2s backwards var(--ease-out);
 }
 
-@media (max-width: 640px) {
-  .sunset-forecast-card {
-    border-radius: 1rem;
-    padding: 0.75rem 1rem;
-    text-align: left;
-    margin-top: 1rem;
-  }
+/* ---------- 2. Sunset Forecast Card (Botão Interativo de Destaque) ---------- */
+.sunset-forecast-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  max-width: 38rem;
+  margin: 1.25rem auto 0;
+  padding: 0.75rem 1.25rem;
+  border-radius: 999px;
+  background: rgba(255, 250, 240, 0.16);
+  border: 1px solid rgba(255, 235, 195, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #fffaf0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.25);
+  font-family: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition: transform 0.28s var(--ease-out), box-shadow 0.28s var(--ease-out), background-color 0.28s var(--ease-out), border-color 0.28s var(--ease-out);
+}
+
+.sunset-forecast-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px -6px rgba(0, 0, 0, 0.35);
+}
+
+.sunset-forecast-card:focus-visible {
+  outline: 2px solid var(--amber-poente);
+  outline-offset: 3px;
 }
 
 .sunset-forecast-icon {
   font-size: 1.5rem;
   line-height: 1;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  flex-shrink: 0;
 }
 
 .sunset-forecast-text {
@@ -384,6 +408,7 @@
   font-size: 0.85rem;
   line-height: 1.35;
   text-align: left;
+  flex: 1;
 }
 
 .sunset-forecast-text strong {
@@ -397,17 +422,53 @@
   font-size: 0.8rem;
 }
 
-/* Variação destacada na seção Destaques (pôr do sol) */
+/* Badge indicativo de ação no card */
+.sunset-forecast-cta-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  background: var(--amber-poente);
+  color: var(--indigo-noite);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  transition: transform 0.25s var(--ease-out), background-color 0.25s var(--ease-out), color 0.25s var(--ease-out);
+}
+
+.sunset-forecast-cta-badge svg {
+  transition: transform 0.25s var(--ease-out);
+}
+
+.sunset-forecast-card:hover .sunset-forecast-cta-badge {
+  background: #ff8b4d;
+  color: #ffffff;
+}
+
+.sunset-forecast-card:hover .sunset-forecast-cta-badge svg {
+  transform: translateX(3px);
+}
+
+/* Variação interativa destacada na seção Destaques (pôr do sol) */
 .sunset-forecast-card--highlight {
   margin: 1.5rem auto 0;
-  background: rgba(255, 255, 255, 0.55);
-  border: 1px solid rgba(43, 33, 64, 0.14);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(43, 33, 64, 0.15);
   color: var(--indigo-noite);
-  box-shadow: 0 10px 24px -6px rgba(43, 33, 64, 0.1);
+  box-shadow: 0 10px 26px -6px rgba(43, 33, 64, 0.12);
   text-shadow: none;
   animation: none;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.sunset-forecast-card--highlight:hover {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(255, 122, 69, 0.4);
+  box-shadow: 0 14px 32px -4px rgba(255, 122, 69, 0.22);
 }
 
 .sunset-forecast-card--highlight strong {
@@ -419,6 +480,317 @@
   color: rgba(43, 33, 64, 0.85);
   font-weight: 500;
 }
+
+@media (max-width: 640px) {
+  .sunset-forecast-card {
+    border-radius: 1.25rem;
+    padding: 0.9rem 1.1rem;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .sunset-forecast-cta-badge {
+    width: 100%;
+    justify-content: center;
+    padding: 0.45rem 0.75rem;
+  }
+}
+
+/* ---------- 2.1 Modal do Guia do Pôr do Sol ---------- */
+.sunset-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.sunset-modal.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.sunset-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(18, 14, 27, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.sunset-modal-dialog {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 640px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: 1.5rem;
+  padding: 2.2rem 2rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  color: var(--indigo-noite);
+  outline: none;
+  transform: scale(0.94) translateY(12px);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sunset-modal.is-open .sunset-modal-dialog {
+  transform: scale(1) translateY(0);
+}
+
+.sunset-modal-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: rgba(43, 33, 64, 0.06);
+  border: 1px solid rgba(43, 33, 64, 0.1);
+  color: var(--indigo-noite);
+  cursor: pointer;
+  transition: all 0.2s var(--ease-out);
+}
+
+.sunset-modal-close:hover {
+  background: rgba(43, 33, 64, 0.12);
+  transform: rotate(90deg);
+}
+
+.sunset-modal-header {
+  margin-bottom: 1.5rem;
+  padding-right: 2rem;
+}
+
+.sunset-modal-tag {
+  display: inline-block;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--coral-por-do-sol);
+  margin-bottom: 0.35rem;
+}
+
+.sunset-modal-header h3 {
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  color: var(--indigo-noite);
+  line-height: 1.2;
+  margin: 0 0 0.4rem;
+}
+
+.sunset-modal-header p {
+  color: #64748b;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Card de destaque do horário */
+.sunset-modal-highlight-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  padding: 1.2rem 1.4rem;
+  border-radius: 1.1rem;
+  background: linear-gradient(135deg, rgba(255, 122, 69, 0.12) 0%, rgba(245, 158, 11, 0.16) 100%);
+  border: 1px solid rgba(255, 122, 69, 0.25);
+  margin-bottom: 1.8rem;
+}
+
+.sunset-modal-highlight-time {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.sunset-modal-clock-icon {
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.sunset-modal-highlight-label {
+  display: block;
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #8c532d;
+}
+
+.sunset-modal-highlight-val {
+  font-family: var(--font-display);
+  font-size: 1.85rem;
+  color: var(--indigo-noite);
+  line-height: 1;
+}
+
+.sunset-modal-highlight-tip {
+  max-width: 240px;
+  font-size: 0.82rem;
+  line-height: 1.35;
+  color: #554462;
+  border-left: 2px solid rgba(255, 122, 69, 0.35);
+  padding-left: 0.9rem;
+}
+
+/* Timeline */
+.sunset-timeline {
+  margin-bottom: 1.8rem;
+}
+
+.sunset-timeline-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--indigo-noite);
+  margin-bottom: 1rem;
+}
+
+.sunset-timeline-item {
+  position: relative;
+  display: flex;
+  gap: 1.1rem;
+  padding-bottom: 1.4rem;
+}
+
+.sunset-timeline-item:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  top: 2rem;
+  bottom: 0;
+  width: 2px;
+  background: #e2e8f0;
+}
+
+.sunset-timeline-dot {
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 50%;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.sunset-timeline-item.is-peak .sunset-timeline-dot {
+  background: #fff7ed;
+  border-color: #f97316;
+  box-shadow: 0 0 12px rgba(249, 115, 22, 0.35);
+}
+
+.sunset-timeline-body {
+  flex: 1;
+}
+
+.sunset-timeline-time {
+  display: block;
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--indigo-noite);
+  margin-bottom: 0.25rem;
+}
+
+.sunset-timeline-item.is-peak .sunset-timeline-time {
+  color: var(--coral-por-do-sol);
+}
+
+.sunset-timeline-body p {
+  margin: 0;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: #64748b;
+}
+
+/* Dicas */
+.sunset-tips-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+  margin-bottom: 1.8rem;
+}
+
+.sunset-tip-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.95rem;
+  border-radius: 0.9rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+.sunset-tip-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.sunset-tip-card strong {
+  display: block;
+  font-size: 0.84rem;
+  color: var(--indigo-noite);
+  margin-bottom: 0.2rem;
+}
+
+.sunset-tip-card p {
+  margin: 0;
+  font-size: 0.78rem;
+  color: #64748b;
+  line-height: 1.35;
+}
+
+/* Ações */
+.sunset-modal-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-direction: column;
+}
+
+.sunset-modal-btn {
+  width: 100%;
+  justify-content: center;
+  padding: 0.85rem 1.25rem;
+  font-size: 0.92rem;
+}
+
+@media (max-width: 640px) {
+  .sunset-modal-dialog {
+    padding: 1.75rem 1.25rem;
+    border-radius: 1.25rem;
+  }
+  .sunset-modal-highlight-box {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .sunset-modal-highlight-tip {
+    max-width: 100%;
+    border-left: none;
+    border-top: 1px solid rgba(255, 122, 69, 0.25);
+    padding-left: 0;
+    padding-top: 0.75rem;
+  }
+  .sunset-tips-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 
 /* ---------- 3. Lightbox HD da Galeria ---------- */
 .gallery-item {

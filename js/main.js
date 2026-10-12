@@ -771,10 +771,10 @@ function initLiveStatus() {
   setInterval(update, 60000);
 }
 
-/* ---------- 2. Previsão do Pôr do Sol em Pirabas (PA) ---------- */
+/* ---------- 2. Previsão & Guia Interativo do Pôr do Sol em Pirabas (PA) ---------- */
 function initSunsetForecast() {
   const el = document.getElementById('sunset-time');
-  if (!el) return;
+  const modalSunsetTimes = document.querySelectorAll('.modal-sunset-time');
 
   const now = new Date();
   const startOfYear = new Date(now.getFullYear(), 0, 0);
@@ -787,7 +787,56 @@ function initSunsetForecast() {
   const sunsetMinutes = Math.round(18 * 60 + 13 + 6 * Math.sin(angle));
   const h = Math.floor(sunsetMinutes / 60);
   const m = String(sunsetMinutes % 60).padStart(2, '0');
-  el.textContent = `${h}h${m}`;
+  const formattedSunset = `${h}h${m}`;
+
+  if (el) el.textContent = formattedSunset;
+  modalSunsetTimes.forEach((span) => {
+    span.textContent = formattedSunset;
+  });
+
+  // Controle de abertura e fechamento do modal
+  const trigger = document.getElementById('sunsetCardBtn');
+  const modal = document.getElementById('sunset-modal');
+  if (!trigger || !modal) return;
+
+  const closeBtn = document.getElementById('sunsetModalClose');
+  const backdrop = document.getElementById('sunsetModalBackdrop');
+  const dialog = modal.querySelector('.sunset-modal-dialog');
+  const galleryLink = document.getElementById('sunsetModalGalleryLink');
+
+  const openModal = () => {
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    if (dialog) dialog.focus();
+  };
+
+  const closeModal = () => {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (trigger) trigger.focus();
+  };
+
+  trigger.addEventListener('click', (e) => {
+    e.preventDefault();
+    openModal();
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  if (backdrop) backdrop.addEventListener('click', closeModal);
+
+  if (galleryLink) {
+    galleryLink.addEventListener('click', () => {
+      closeModal();
+    });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('is-open')) {
+      closeModal();
+    }
+  });
 }
 
 /* ---------- 3. Lightbox HD da Galeria ---------- */

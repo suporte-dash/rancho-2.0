@@ -37,7 +37,7 @@
   <!-- ============ CSS ============ -->
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/approved-overrides.css?v=reviews-themes-grid-v1-2026" />
-  <link rel="stylesheet" href="css/enhancements.css?v=1.1.3" />
+  <link rel="stylesheet" href="css/enhancements.css?v=1.1.4" />
 
   <!-- ============ Favicon ============ -->
   <link rel="icon" type="image/png" href="assets/images/logo-icon-black.png" />
@@ -285,13 +285,17 @@
           <h2 data-split-text>Feito para quem não abre mão de um bom pôr do sol</h2>
           <p>Os diferenciais mais citados por quem já conhece o Rancho Pirabas.</p>
 
-          <div class="sunset-forecast-card sunset-forecast-card--highlight">
+          <button type="button" class="sunset-forecast-card sunset-forecast-card--highlight" id="sunsetCardBtn" aria-haspopup="dialog" aria-controls="sunset-modal" aria-label="Abrir guia interativo do pôr do sol em São João de Pirabas">
             <span class="sunset-forecast-icon" aria-hidden="true">🌅</span>
             <div class="sunset-forecast-text">
               <strong>Pôr do sol hoje previsto às <span id="sunset-time">18h14</span></strong>
               <span>Chegue até as 17h para garantir os melhores lugares no deck à beira-mar</span>
             </div>
-          </div>
+            <span class="sunset-forecast-cta-badge" aria-hidden="true">
+              <span>Ver guia solar</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="15" height="15"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </button>
         </div>
 
         <div class="highlights-grid" data-reveal-stagger>
@@ -839,6 +843,105 @@
       </div>
     </div>
   </footer>
+
+  <!-- ============================================================
+       GUIA DO PÔR DO SOL (Modal Interativo)
+  ============================================================= -->
+  <div class="sunset-modal" id="sunset-modal" role="dialog" aria-modal="true" aria-labelledby="sunsetModalTitle" aria-hidden="true">
+    <div class="sunset-modal-backdrop" id="sunsetModalBackdrop"></div>
+    <div class="sunset-modal-dialog" tabindex="-1">
+      <button type="button" class="sunset-modal-close" id="sunsetModalClose" aria-label="Fechar guia do pôr do sol">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="22" height="22" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+
+      <div class="sunset-modal-header">
+        <span class="sunset-modal-tag">Experiência Exclusiva</span>
+        <h3 id="sunsetModalTitle">Guia do Pôr do Sol em Pirabas</h3>
+        <p>O entardecer mais famoso do Salgado Paraense visto do melhor deck da região.</p>
+      </div>
+
+      <!-- Card de Destaque da Hora Solar -->
+      <div class="sunset-modal-highlight-box">
+        <div class="sunset-modal-highlight-time">
+          <span class="sunset-modal-clock-icon" aria-hidden="true">🌅</span>
+          <div>
+            <span class="sunset-modal-highlight-label">Previsão oficial para hoje</span>
+            <strong class="sunset-modal-highlight-val"><span class="modal-sunset-time">18h11</span></strong>
+          </div>
+        </div>
+        <div class="sunset-modal-highlight-tip">
+          <strong>Horário sugerido de chegada:</strong>
+          <span>A partir das <strong>16h</strong> para garantir os melhores lugares no deck com brisa da maré.</span>
+        </div>
+      </div>
+
+      <!-- Timeline Solar -->
+      <div class="sunset-timeline">
+        <h4 class="sunset-timeline-title">Linha do Tempo do Entardecer</h4>
+
+        <div class="sunset-timeline-item">
+          <div class="sunset-timeline-dot">☀️</div>
+          <div class="sunset-timeline-body">
+            <span class="sunset-timeline-time">16h00 — Abertura dos Portões</span>
+            <p>O sol começa a descer suavemente. O momento ideal para escolher as melhores mesas na beira do deck de madeira e pedir as primeiras bebidas geladas.</p>
+          </div>
+        </div>
+
+        <div class="sunset-timeline-item">
+          <div class="sunset-timeline-dot">✨</div>
+          <div class="sunset-timeline-body">
+            <span class="sunset-timeline-time">17h15 às 18h00 — Golden Hour (Hora de Ouro)</span>
+            <p>A iluminação mais deslumbrante do dia. A luz do sol reflete como ouro na água — hora perfeita para fotos espetaculares e brindar com quem você gosta.</p>
+          </div>
+        </div>
+
+        <div class="sunset-timeline-item is-peak">
+          <div class="sunset-timeline-dot">🌅</div>
+          <div class="sunset-timeline-body">
+            <span class="sunset-timeline-time"><span class="modal-sunset-time">18h11</span> — O Espetáculo Solar</span>
+            <p>O disco solar desce no horizonte. O momento mais mágico de Pirabas, com o céu em degradê de laranja, coral e violeta.</p>
+          </div>
+        </div>
+
+        <div class="sunset-timeline-item">
+          <div class="sunset-timeline-dot">🌌</div>
+          <div class="sunset-timeline-body">
+            <span class="sunset-timeline-time">18h30 em diante — Clima Noturno & Deck Aceso</span>
+            <p>As luzes cênicas do Rancho se acendem, a brisa fica ainda mais gostosa e a noite segue com petiscos quentes e boa música até as 23h.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dicas de Ouro -->
+      <div class="sunset-tips-grid">
+        <div class="sunset-tip-card">
+          <span class="sunset-tip-icon">🍹</span>
+          <div>
+            <strong>O que harmonizar</strong>
+            <p>Caipirinha de frutas regionais ou cerveja trincando com iscas de peixe crocante.</p>
+          </div>
+        </div>
+        <div class="sunset-tip-card">
+          <span class="sunset-tip-icon">📸</span>
+          <div>
+            <strong>Melhor ponto para foto</strong>
+            <p>No parapeito frontal de madeira, com ângulo aberto pegando o deck e a linha d’água.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ações do Modal -->
+      <div class="sunset-modal-actions">
+        <a href="https://wa.me/5591985031257?text=Ol%C3%A1%21%20Gostaria%20de%20reservar%20uma%20mesa%20no%20deck%20para%20curtir%20o%20p%C3%B4r%20do%20sol%20no%20Rancho%20Pirabas." class="btn btn-primary sunset-modal-btn" target="_blank" rel="noopener">
+          <span class="btn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+          Reservar mesa para o pôr do sol
+        </a>
+        <a href="#galeria" class="btn btn-ghost sunset-modal-btn" id="sunsetModalGalleryLink">
+          Ver fotos do entardecer na galeria
+        </a>
+      </div>
+    </div>
+  </div>
 
   <!-- ============================================================
        LIGHTBOX HD (Galeria em Alta Definição)
