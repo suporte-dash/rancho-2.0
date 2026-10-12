@@ -773,44 +773,6 @@ function initLiveStatus() {
 
 /* ---------- 2. Previsão & Guia Interativo do Pôr do Sol em Pirabas (PA) ---------- */
 function initSunsetForecast() {
-  const el = document.getElementById('sunset-time');
-  const modalSunsetTimes = document.querySelectorAll('.modal-sunset-time');
-
-  const now = new Date();
-  const startOfYear = new Date(now.getFullYear(), 0, 0);
-  const diff = now - startOfYear;
-  const oneDay = 1000 * 60 * 60 * 24;
-  const dayOfYear = Math.floor(diff / oneDay);
-
-  // Estimativa solar para a costa equatorial paraense (-0.76° S, -47.17° W)
-  const angle = (2 * Math.PI / 365) * (dayOfYear - 80);
-  // Formatador de minutos para string no padrão '18h11'
-  const formatTime = (totalMinutes) => {
-    const hours = Math.floor(totalMinutes / 60);
-    const minutes = String(Math.max(0, totalMinutes % 60)).padStart(2, '0');
-    return `${hours}h${minutes}`;
-  };
-
-  const formattedSunset = formatTime(sunsetMinutes);
-  const goldenStart = formatTime(sunsetMinutes - 50); // Início da Golden Hour (~50min antes)
-  const twilightTime = formatTime(sunsetMinutes + 20); // Crepúsculo náutico (~20min após o pôr)
-
-  if (el) el.textContent = formattedSunset;
-  modalSunsetTimes.forEach((span) => {
-    span.textContent = formattedSunset;
-  });
-
-  const goldenEl = document.getElementById('timeline-golden-hour');
-  if (goldenEl) {
-    goldenEl.textContent = `${goldenStart} às ${formattedSunset}`;
-  }
-
-  const twilightEl = document.getElementById('timeline-twilight');
-  if (twilightEl) {
-    twilightEl.textContent = twilightTime;
-  }
-
-  // Controle de abertura e fechamento do modal
   const modal = document.getElementById('sunset-modal');
   if (!modal) return;
 
@@ -832,9 +794,9 @@ function initSunsetForecast() {
     document.body.style.overflow = '';
   };
 
-  // Escuta clique global para abrir modal de qualquer elemento com #sunsetCardBtn ou classe .btn-sunset-minimal
+  // Escuta clique global para abrir modal de qualquer elemento com #sunsetCardBtn ou classe de botão do guia
   document.addEventListener('click', (e) => {
-    const trigger = e.target.closest('#sunsetCardBtn, .btn-sunset-minimal, .sunset-forecast-card');
+    const trigger = e.target.closest('#sunsetCardBtn, .btn-sunset-guide, .btn-sunset-minimal, .sunset-forecast-card');
     if (trigger) {
       e.preventDefault();
       openModal();
@@ -855,6 +817,50 @@ function initSunsetForecast() {
       closeModal();
     }
   });
+
+  // Atualização dos horários solares dinâmicos
+  try {
+    const now = new Date();
+    const startOfYear = new Date(now.getFullYear(), 0, 0);
+    const diff = now - startOfYear;
+    const oneDay = 1000 * 60 * 60 * 24;
+    const dayOfYear = Math.floor(diff / oneDay);
+
+    // Estimativa solar para a costa equatorial paraense (-0.76° S, -47.17° W)
+    const angle = (2 * Math.PI / 365) * (dayOfYear - 80);
+    const sunsetMinutes = Math.round(18 * 60 + 13 + 6 * Math.sin(angle));
+
+    // Formatador de minutos para string no padrão '18h11'
+    const formatTime = (totalMinutes) => {
+      const hours = Math.floor(totalMinutes / 60);
+      const minutes = String(Math.max(0, totalMinutes % 60)).padStart(2, '0');
+      return `${hours}h${minutes}`;
+    };
+
+    const formattedSunset = formatTime(sunsetMinutes);
+    const goldenStart = formatTime(sunsetMinutes - 50); // Início da Golden Hour (~50min antes)
+    const twilightTime = formatTime(sunsetMinutes + 20); // Crepúsculo náutico (~20min após o pôr)
+
+    const el = document.getElementById('sunset-time');
+    if (el) el.textContent = formattedSunset;
+
+    const modalSunsetTimes = document.querySelectorAll('.modal-sunset-time');
+    modalSunsetTimes.forEach((span) => {
+      span.textContent = formattedSunset;
+    });
+
+    const goldenEl = document.getElementById('timeline-golden-hour');
+    if (goldenEl) {
+      goldenEl.textContent = `${goldenStart} às ${formattedSunset}`;
+    }
+
+    const twilightEl = document.getElementById('timeline-twilight');
+    if (twilightEl) {
+      twilightEl.textContent = twilightTime;
+    }
+  } catch (err) {
+    console.warn('Erro ao atualizar horários solares:', err);
+  }
 }
 
 /* ---------- 3. Lightbox HD da Galeria ---------- */
