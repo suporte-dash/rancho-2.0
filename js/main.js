@@ -784,15 +784,31 @@ function initSunsetForecast() {
 
   // Estimativa solar para a costa equatorial paraense (-0.76° S, -47.17° W)
   const angle = (2 * Math.PI / 365) * (dayOfYear - 80);
-  const sunsetMinutes = Math.round(18 * 60 + 13 + 6 * Math.sin(angle));
-  const h = Math.floor(sunsetMinutes / 60);
-  const m = String(sunsetMinutes % 60).padStart(2, '0');
-  const formattedSunset = `${h}h${m}`;
+  // Formatador de minutos para string no padrão '18h11'
+  const formatTime = (totalMinutes) => {
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = String(Math.max(0, totalMinutes % 60)).padStart(2, '0');
+    return `${hours}h${minutes}`;
+  };
+
+  const formattedSunset = formatTime(sunsetMinutes);
+  const goldenStart = formatTime(sunsetMinutes - 50); // Início da Golden Hour (~50min antes)
+  const twilightTime = formatTime(sunsetMinutes + 20); // Crepúsculo náutico (~20min após o pôr)
 
   if (el) el.textContent = formattedSunset;
   modalSunsetTimes.forEach((span) => {
     span.textContent = formattedSunset;
   });
+
+  const goldenEl = document.getElementById('timeline-golden-hour');
+  if (goldenEl) {
+    goldenEl.textContent = `${goldenStart} às ${formattedSunset}`;
+  }
+
+  const twilightEl = document.getElementById('timeline-twilight');
+  if (twilightEl) {
+    twilightEl.textContent = twilightTime;
+  }
 
   // Controle de abertura e fechamento do modal
   const modal = document.getElementById('sunset-modal');
