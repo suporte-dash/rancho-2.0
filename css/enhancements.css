@@ -362,156 +362,93 @@
   animation: fadeInDown 0.8s 2.2s backwards var(--ease-out);
 }
 
-/* ---------- 2. Sunset Forecast Card (Botão Interativo de Destaque) ---------- */
+/* ---------- 2. Botão Minimalista do Guia Solar ---------- */
+.sunset-btn-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.btn-sunset-minimal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.72rem 1.65rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ff7a45 0%, #ea580c 100%);
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 8px 24px -4px rgba(234, 88, 12, 0.45), 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out), background 0.25s var(--ease-out);
+}
+
+.btn-sunset-minimal:hover {
+  transform: translateY(-2px) scale(1.02);
+  background: linear-gradient(135deg, #ff8b57 0%, #f97316 100%);
+  box-shadow: 0 12px 30px -4px rgba(234, 88, 12, 0.6), 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.btn-sunset-minimal:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-sunset-minimal:focus-visible {
+  outline: 3px solid #ff7a45;
+  outline-offset: 3px;
+}
+
+.btn-sunset-minimal-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+}
+
+.btn-sunset-minimal svg {
+  transition: transform 0.25s var(--ease-out);
+}
+
+.btn-sunset-minimal:hover svg {
+  transform: translateX(4px);
+}
+
+/* Fallback para caso haja .sunset-forecast-card */
 .sunset-forecast-card {
   display: inline-flex;
   align-items: center;
   gap: 0.85rem;
-  max-width: 38rem;
-  margin: 1.25rem auto 0;
   padding: 0.75rem 1.25rem;
   border-radius: 999px;
   background: rgba(255, 250, 240, 0.16);
   border: 1px solid rgba(255, 235, 195, 0.35);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   color: #fffaf0;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-  box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.25);
-  font-family: inherit;
   cursor: pointer;
-  text-align: left;
-  transition: transform 0.28s var(--ease-out), box-shadow 0.28s var(--ease-out), background-color 0.28s var(--ease-out), border-color 0.28s var(--ease-out);
-}
-
-.sunset-forecast-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 30px -6px rgba(0, 0, 0, 0.35);
-}
-
-.sunset-forecast-card:focus-visible {
-  outline: 2px solid var(--amber-poente);
-  outline-offset: 3px;
-}
-
-.sunset-forecast-icon {
-  font-size: 1.5rem;
-  line-height: 1;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-  flex-shrink: 0;
-}
-
-.sunset-forecast-text {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-  font-size: 0.85rem;
-  line-height: 1.35;
-  text-align: left;
-  flex: 1;
-}
-
-.sunset-forecast-text strong {
-  font-weight: 700;
-  color: #ffe6aa;
-  letter-spacing: -0.01em;
-}
-
-.sunset-forecast-text span {
-  opacity: 0.92;
-  font-size: 0.8rem;
-}
-
-/* Badge indicativo de ação no card */
-.sunset-forecast-cta-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.4rem 0.85rem;
-  border-radius: 999px;
-  background: var(--amber-poente);
-  color: var(--indigo-noite);
-  font-size: 0.76rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  flex-shrink: 0;
-  transition: transform 0.25s var(--ease-out), background-color 0.25s var(--ease-out), color 0.25s var(--ease-out);
-}
-
-.sunset-forecast-cta-badge svg {
-  transition: transform 0.25s var(--ease-out);
-}
-
-.sunset-forecast-card:hover .sunset-forecast-cta-badge {
-  background: #ff8b4d;
-  color: #ffffff;
-}
-
-.sunset-forecast-card:hover .sunset-forecast-cta-badge svg {
-  transform: translateX(3px);
-}
-
-/* Variação interativa destacada na seção Destaques (pôr do sol) */
-.sunset-forecast-card--highlight {
-  margin: 1.5rem auto 0;
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(43, 33, 64, 0.15);
-  color: var(--indigo-noite);
-  box-shadow: 0 10px 26px -6px rgba(43, 33, 64, 0.12);
-  text-shadow: none;
-  animation: none;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
-.sunset-forecast-card--highlight:hover {
-  background: rgba(255, 255, 255, 0.92);
-  border-color: rgba(255, 122, 69, 0.4);
-  box-shadow: 0 14px 32px -4px rgba(255, 122, 69, 0.22);
-}
-
-.sunset-forecast-card--highlight strong {
-  color: var(--indigo-noite);
-  font-size: 0.92rem;
-}
-
-.sunset-forecast-card--highlight span {
-  color: rgba(43, 33, 64, 0.85);
-  font-weight: 500;
-}
-
-@media (max-width: 640px) {
-  .sunset-forecast-card {
-    border-radius: 1.25rem;
-    padding: 0.9rem 1.1rem;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-  }
-  .sunset-forecast-cta-badge {
-    width: 100%;
-    justify-content: center;
-    padding: 0.45rem 0.75rem;
-  }
 }
 
 /* ---------- 2.1 Modal do Guia do Pôr do Sol ---------- */
 .sunset-modal {
   position: fixed;
   inset: 0;
-  z-index: 9999;
+  z-index: 99999;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1.25rem;
   opacity: 0;
   visibility: hidden;
+  pointer-events: none;
   transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .sunset-modal.is-open {
-  opacity: 1;
-  visibility: visible;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
 }
 
 .sunset-modal-backdrop {

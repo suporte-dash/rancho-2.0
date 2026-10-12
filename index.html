@@ -37,7 +37,7 @@
   <!-- ============ CSS ============ -->
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/approved-overrides.css?v=reviews-themes-grid-v1-2026" />
-  <link rel="stylesheet" href="css/enhancements.css?v=1.1.4" />
+  <link rel="stylesheet" href="css/enhancements.css?v=1.3.0" />
 
   <!-- ============ Favicon ============ -->
   <link rel="icon" type="image/png" href="assets/images/logo-icon-black.png" />
@@ -284,18 +284,13 @@
           <span class="eyebrow">Por que visitar</span>
           <h2 data-split-text>Feito para quem não abre mão de um bom pôr do sol</h2>
           <p>Os diferenciais mais citados por quem já conhece o Rancho Pirabas.</p>
-
-          <button type="button" class="sunset-forecast-card sunset-forecast-card--highlight" id="sunsetCardBtn" aria-haspopup="dialog" aria-controls="sunset-modal" aria-label="Abrir guia interativo do pôr do sol em São João de Pirabas">
-            <span class="sunset-forecast-icon" aria-hidden="true">🌅</span>
-            <div class="sunset-forecast-text">
-              <strong>Pôr do sol hoje previsto às <span id="sunset-time">18h14</span></strong>
-              <span>Chegue até as 17h para garantir os melhores lugares no deck à beira-mar</span>
-            </div>
-            <span class="sunset-forecast-cta-badge" aria-hidden="true">
+          <div class="sunset-btn-container">
+            <button type="button" class="btn-sunset-minimal" id="sunsetCardBtn" aria-haspopup="dialog" aria-controls="sunset-modal" aria-label="Abrir guia solar com informações do pôr do sol">
+              <span class="btn-sunset-minimal-icon" aria-hidden="true">🌅</span>
               <span>Ver guia solar</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="15" height="15"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </span>
-          </button>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="16" height="16" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
         </div>
 
         <div class="highlights-grid" data-reveal-stagger>
@@ -866,7 +861,7 @@
           <span class="sunset-modal-clock-icon" aria-hidden="true">🌅</span>
           <div>
             <span class="sunset-modal-highlight-label">Previsão oficial para hoje</span>
-            <strong class="sunset-modal-highlight-val"><span class="modal-sunset-time">18h11</span></strong>
+            <strong class="sunset-modal-highlight-val"><span class="modal-sunset-time" id="sunset-time">18h11</span></strong>
           </div>
         </div>
         <div class="sunset-modal-highlight-tip">
@@ -980,6 +975,6 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
   </a>
 
-  <script src="js/main.js?v=1.1.0"></script>
+  <script src="js/main.js?v=1.3.0"></script>
 </body>
 </html>

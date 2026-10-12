@@ -795,9 +795,8 @@ function initSunsetForecast() {
   });
 
   // Controle de abertura e fechamento do modal
-  const trigger = document.getElementById('sunsetCardBtn');
   const modal = document.getElementById('sunset-modal');
-  if (!trigger || !modal) return;
+  if (!modal) return;
 
   const closeBtn = document.getElementById('sunsetModalClose');
   const backdrop = document.getElementById('sunsetModalBackdrop');
@@ -815,12 +814,15 @@ function initSunsetForecast() {
     modal.classList.remove('is-open');
     modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
-    if (trigger) trigger.focus();
   };
 
-  trigger.addEventListener('click', (e) => {
-    e.preventDefault();
-    openModal();
+  // Escuta clique global para abrir modal de qualquer elemento com #sunsetCardBtn ou classe .btn-sunset-minimal
+  document.addEventListener('click', (e) => {
+    const trigger = e.target.closest('#sunsetCardBtn, .btn-sunset-minimal, .sunset-forecast-card');
+    if (trigger) {
+      e.preventDefault();
+      openModal();
+    }
   });
 
   if (closeBtn) closeBtn.addEventListener('click', closeModal);
