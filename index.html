@@ -37,7 +37,7 @@
   <!-- ============ CSS ============ -->
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/approved-overrides.css?v=reviews-themes-grid-v1-2026" />
-  <link rel="stylesheet" href="css/enhancements.css?v=1.1.2" />
+  <link rel="stylesheet" href="css/enhancements.css?v=1.1.3" />
 
   <!-- ============ Favicon ============ -->
   <link rel="icon" type="image/png" href="assets/images/logo-icon-black.png" />
@@ -185,7 +185,14 @@
       <span class="hero-sunrays" aria-hidden="true"></span>
 
       <div class="hero-content">
-        <span class="hero-kicker">São João de Pirabas · Pará</span>
+        <div class="hero-meta-row">
+          <span class="hero-kicker">São João de Pirabas · Pará</span>
+          <a href="#localizacao" class="live-status-pill hero-status-pill" id="heroStatusPill" aria-label="Ver horários de funcionamento e localização">
+            <span class="live-status-dot" aria-hidden="true"></span>
+            <span class="live-status-text">Carregando status...</span>
+          </a>
+        </div>
+
         <h1 class="hero-title-handwritten" aria-label="O pôr do sol mais bonito do Pará tem endereço">
           <span class="hero-title-word" style="--word-index: 0">O</span>
           <span class="hero-title-word" style="--word-index: 1">pôr</span>
@@ -210,19 +217,6 @@
             Como chegar
           </a>
         </div>
-
-        <div class="sunset-forecast-card">
-          <span class="sunset-forecast-icon" aria-hidden="true">🌅</span>
-          <div class="sunset-forecast-text">
-            <strong>Pôr do sol hoje previsto às <span id="sunset-time">18h14</span></strong>
-            <span>Chegue até as 17h para garantir os melhores lugares no deck à beira-mar</span>
-          </div>
-        </div>
-
-        <a href="#localizacao" class="live-status-pill hero-status-pill" id="heroStatusPill" aria-label="Ver horários de funcionamento e localização">
-          <span class="live-status-dot" aria-hidden="true"></span>
-          <span class="live-status-text">Carregando status...</span>
-        </a>
       </div>
 
       <svg class="horizon-line" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
@@ -290,6 +284,14 @@
           <span class="eyebrow">Por que visitar</span>
           <h2 data-split-text>Feito para quem não abre mão de um bom pôr do sol</h2>
           <p>Os diferenciais mais citados por quem já conhece o Rancho Pirabas.</p>
+
+          <div class="sunset-forecast-card sunset-forecast-card--highlight">
+            <span class="sunset-forecast-icon" aria-hidden="true">🌅</span>
+            <div class="sunset-forecast-text">
+              <strong>Pôr do sol hoje previsto às <span id="sunset-time">18h14</span></strong>
+              <span>Chegue até as 17h para garantir os melhores lugares no deck à beira-mar</span>
+            </div>
+          </div>
         </div>
 
         <div class="highlights-grid" data-reveal-stagger>

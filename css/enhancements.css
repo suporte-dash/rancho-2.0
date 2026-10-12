@@ -222,24 +222,45 @@
   }
 }
 
-/* Pílula de status "Aberto agora" reposicionada no Hero, abaixo do pôr do sol */
+/* Meta Row no topo do Hero (Localização + Status Unificados) */
+.hero-meta-row {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.35rem;
+  animation: fadeInDown 0.8s 0.15s backwards var(--ease-out);
+}
+
+.hero-meta-row .hero-kicker {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+}
+
+.hero-meta-row .hero-status-pill {
+  margin: 0;
+  padding: 0.42rem 1.05rem;
+  font-size: 0.82rem;
+  animation: none;
+}
+
+/* Pílula de status no Hero */
 .hero-status-pill {
   display: inline-flex;
   align-items: center;
   gap: 0.65rem;
-  margin-top: 0.85rem;
-  padding: 0.52rem 1.35rem;
   border-radius: 999px;
   background: rgba(255, 250, 240, 0.16);
   border: 1px solid rgba(255, 235, 195, 0.4);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   color: #ffffff !important;
-  font-size: 0.88rem;
+  font-size: 0.84rem;
   font-weight: 600;
   text-decoration: none;
   box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.4);
-  animation: fadeInDown 0.8s 2.4s backwards var(--ease-out);
 }
 
 .hero-status-pill:hover {
@@ -374,6 +395,29 @@
 .sunset-forecast-text span {
   opacity: 0.92;
   font-size: 0.8rem;
+}
+
+/* Variação destacada na seção Destaques (pôr do sol) */
+.sunset-forecast-card--highlight {
+  margin: 1.5rem auto 0;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(43, 33, 64, 0.14);
+  color: var(--indigo-noite);
+  box-shadow: 0 10px 24px -6px rgba(43, 33, 64, 0.1);
+  text-shadow: none;
+  animation: none;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.sunset-forecast-card--highlight strong {
+  color: var(--indigo-noite);
+  font-size: 0.92rem;
+}
+
+.sunset-forecast-card--highlight span {
+  color: rgba(43, 33, 64, 0.85);
+  font-weight: 500;
 }
 
 /* ---------- 3. Lightbox HD da Galeria ---------- */
